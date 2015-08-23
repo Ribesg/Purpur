@@ -1,13 +1,13 @@
 package fr.ribesg.minecraft.purpur
 
+import fr.ribesg.minecraft.purpur.event.EulaNeedAgreeEvent
 import fr.ribesg.minecraft.purpur.event.EventManager
-import fr.ribesg.minecraft.purpur.event.RawLineEvent
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
 import fr.ribesg.minecraft.purpur.event.EventHandler as eventHandler
 
 /**
- * TODO This is just a prototyping thing, the main should be almost empty in the end
  * @author Ribesg
  */
 
@@ -16,6 +16,25 @@ public fun main(args: Array<String>) {
     Log.setDebugEnabled(true)
     Log.info("Starting ${Props.name} version ${Props.version}")
 
+    EventManager.registerHandlers(TestEventHandler())
+
+    var (folder, jar) = parseArgs(args)
+
+    ServerWrapper(jar, folder).let { thread ->
+        thread.start()
+        thread.join()
+    }
+
+    Log.info("Stopping ${Props.name} version ${Props.version}")
+}
+
+private class TestEventHandler {
+    public eventHandler fun on(event: EulaNeedAgreeEvent) {
+        Log.info("EULA!")
+    }
+}
+
+private fun parseArgs(args: Array<String>): Pair<Path, Path> {
     var serverFolderName: String = "server"
     var serverJarName: String? = null
     try {
@@ -52,19 +71,7 @@ public fun main(args: Array<String>) {
 
     val serverJarPath = serverFolderPath.resolve(serverJarName)
 
-    EventManager.registerHandlers(RawLineEventHandler())
-
-    ServerProcess(serverJarPath, serverFolderPath)
-
-    Log.info("Server dead, stopping ${Props.name} version ${Props.version}")
-}
-
-private class RawLineEventHandler {
-    public eventHandler fun onRawLineEvent(event: RawLineEvent) {
-        if (event.line.endsWith("You need to agree to the EULA in order to run the server. Go to eula.txt for more info.")) {
-            Log.info("EULA!")
-        }
-    }
+    return Pair(serverFolderPath, serverJarPath)
 }
 
 private fun exitError(error: String? = null) {

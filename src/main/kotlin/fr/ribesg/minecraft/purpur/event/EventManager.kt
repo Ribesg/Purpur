@@ -1,5 +1,6 @@
 package fr.ribesg.minecraft.purpur.event
 
+import fr.ribesg.minecraft.purpur.Log
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.util.Queue
@@ -55,7 +56,7 @@ public object EventManager {
      * @param handlersHolder an object holding one or multiple EventHandlers
      */
     suppress("UNCHECKED_CAST")
-    public fun registerHandlers(handlersHolder: Any) {
+    public fun registerHandlers(handlersHolder: Any, ignoreErrors: Boolean = false) {
         var eh: EventHandler?
         var parameterType: Class<*>
         var handlerRegistered = false
@@ -81,7 +82,7 @@ public object EventManager {
                 }
             }
         }
-        if (!handlerRegistered) {
+        if (!ignoreErrors && !handlerRegistered) {
             throw IllegalArgumentException("Provided object class '" + handlersHolder.javaClass.getName() + "' has no valid EventHandler")
         }
     }
@@ -89,16 +90,16 @@ public object EventManager {
     /**
      * Unregisters all handlers of the provided object.
      *
-     * @param handlersHolder           an object holding one or multiple registered
+     * @param handlersHolder     an object holding one or multiple registered
      *                           EventHandlers
      * @param ignoreUnregistered if this call should ignore errors that may
      *                           occur if the provided instance isn't
      *                           registered
      */
-    public fun unRegisterHandlers(handlersHolder: Any, ignoreUnregistered: Boolean) {
+    public fun unRegisterHandlers(handlersHolder: Any, ignoreErrors: Boolean = false) {
         var eh: EventHandler?
         var parameterType: Class<*>
-        var registeredHandlerFound = ignoreUnregistered
+        var registeredHandlerFound = false
         for (m: Method in handlersHolder.javaClass.getMethods()) {
             eh = m.getAnnotation(javaClass<EventHandler>())
             if (m.isAccessible() && eh != null) {
@@ -129,7 +130,7 @@ public object EventManager {
                 }
             }
         }
-        if (!registeredHandlerFound) {
+        if (!ignoreErrors && !registeredHandlerFound) {
             throw IllegalArgumentException("Provided instance of '" + handlersHolder.javaClass.getName() + "' has no registered EventHandler")
         }
     }
@@ -150,12 +151,10 @@ public object EventManager {
                         om.method.invoke(om.instance, event)
                     }
                 } catch (t: Throwable) {
-                    // TODO Actual logging
-                    println(
+                    Log.error(
                         "EventHandler '" + om.method.getDeclaringClass().getName() + '.' + om.method.getName() +
-                        "(...)' invokation failed: " + t.getMessage()
+                        "(...)' invokation failed", t
                     )
-                    t.printStackTrace()
                 }
             }
         }
