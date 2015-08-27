@@ -2,7 +2,7 @@ package fr.ribesg.minecraft.purpur
 
 import fr.ribesg.minecraft.purpur.event.EventManager
 import fr.ribesg.minecraft.purpur.event.InternalHandlers
-import fr.ribesg.minecraft.purpur.event.RawLineEvent
+import fr.ribesg.minecraft.purpur.event.RawLogLineEvent
 import fr.ribesg.minecraft.purpur.event.ServerStoppedEvent
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -61,7 +61,7 @@ public class ServerWrapper(serverJarPath: Path, serverFolderPath: Path) : Thread
                 line = reader.readLine()
                 if (line != null) {
                     Log.server(line)
-                    EventManager.call(RawLineEvent(line))
+                    EventManager.call(RawLogLineEvent(line))
                 }
             } while (line != null)
 

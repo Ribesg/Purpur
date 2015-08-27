@@ -1,6 +1,6 @@
 package fr.ribesg.minecraft.purpur
 
-import fr.ribesg.minecraft.purpur.event.EulaNeedAgreeEvent
+import fr.ribesg.minecraft.purpur.event.EulaRequiresAgreementEvent
 import fr.ribesg.minecraft.purpur.event.EventManager
 import java.nio.file.Files
 import java.nio.file.Path
@@ -29,7 +29,7 @@ public fun main(args: Array<String>) {
 }
 
 private class TestEventHandler {
-    public eventHandler fun on(event: EulaNeedAgreeEvent) {
+    public eventHandler fun on(event: EulaRequiresAgreementEvent) {
         Log.info("EULA!")
     }
 }

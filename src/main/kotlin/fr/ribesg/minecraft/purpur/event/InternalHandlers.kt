@@ -1,5 +1,6 @@
 package fr.ribesg.minecraft.purpur.event
 
+import fr.ribesg.minecraft.purpur.Props
 import fr.ribesg.minecraft.purpur.event.EventHandler as eventHandler
 import fr.ribesg.minecraft.purpur.event.EventHandlerPriority as Priority
 
@@ -8,18 +9,28 @@ import fr.ribesg.minecraft.purpur.event.EventHandlerPriority as Priority
  */
 public object InternalHandlers {
 
+    /**
+     * Calls a [LogLineEvent] for each [RawLogLineEvent].
+     */
     eventHandler(Priority.INTERNAL)
-    public fun onRawLine(e: RawLineEvent) {
-        EventManager.call(LineEvent(e.line.trim()))
-    }
+    public fun onRawLogLine(e: RawLogLineEvent): Unit
+        = EventManager.call(LogLineEvent(e.line.trim()))
 
+    /**
+     * Calls all Regex-triggered [Event]s.
+     */
+    // TODO Once most events are here, order them correctly (for example, chat first).
     eventHandler(Priority.INTERNAL)
-    public fun onLine(e: LineEvent) {
-        when (e.content) {
-            "Generating new properties file"
-            -> EventManager.call(CreateServerPropertiesEvent())
-            "You need to agree to the EULA in order to run the server. Go to eula.txt for more info."
-            -> EventManager.call(EulaNeedAgreeEvent())
-        }
+    public fun onLogLine(e: LogLineEvent): Unit = when {
+
+        Props.regexCreateServerProperties.matches(e.content)
+        -> EventManager.call(CreateServerPropertiesEvent())
+
+        Props.regexEulaRequiresAgreement.matches(e.content)
+        -> EventManager.call(EulaRequiresAgreementEvent())
+
+        Props.regexServerReady.matches(e.content)
+        -> EventManager.call(ServerReadyEvent())
+
     }
 }

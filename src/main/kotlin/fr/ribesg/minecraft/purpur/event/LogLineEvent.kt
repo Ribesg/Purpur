@@ -7,7 +7,7 @@ import java.util.Calendar
 /**
  * @author Ribesg
  */
-public data class LineEvent(line: String) : Event() {
+public data class LogLineEvent(line: String) : Event() {
 
     private companion object {
         val LOG_REGEX = "\\[(..:..:..)\\] \\[(.+)/(.+)\\]: (.+)".toRegex()
