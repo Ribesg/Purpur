@@ -1,5 +1,6 @@
 package fr.ribesg.minecraft.purpur.event
 
+import fr.ribesg.minecraft.purpur.Props
 import java.text.SimpleDateFormat
 import java.util.ArrayList
 import java.util.Calendar
@@ -10,10 +11,8 @@ import java.util.Calendar
 public data class LogLineEvent(line: String) : Event() {
 
     private companion object {
-        val LOG_REGEX = "\\[(..:..:..)\\] \\[(.+)/(.+)\\]: (.+)".toRegex()
-
         fun parse(line: String): List<String> {
-            return LOG_REGEX
+            return Props.regexLine
                 .match(line)!!
                 .groups
                 .drop(1)
