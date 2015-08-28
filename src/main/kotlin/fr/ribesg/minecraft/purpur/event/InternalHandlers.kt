@@ -32,5 +32,17 @@ public object InternalHandlers {
         Props.regexServerReady.matches(e.content)
         -> EventManager.call(ServerReadyEvent())
 
+        Props.regexPlayerJoin.matches(e.content)
+        -> EventManager.call(PlayerJoinEvent(e.time, e.content))
+
+        Props.regexPlayerQuit.matches(e.content)
+        -> EventManager.call(PlayerQuitEvent(e.time, e.content))
+
+        Props.regexPlayerChat.matches(e.content)
+        -> EventManager.call(PlayerChatEvent(e.time, e.content))
+
+        Props.regexPlayerCommand.matches(e.content)
+        -> EventManager.call(PlayerCommandEvent(e.time, e.content))
+
     }
 }

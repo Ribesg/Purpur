@@ -44,6 +44,30 @@ public object Props {
     public val regexServerReady: Regex
 
     /**
+     * Regex triggering
+     * [fr.ribesg.minecraft.purpur.event.PlayerJoinEvent].
+     */
+    public val regexPlayerJoin: Regex
+
+    /**
+     * Regex triggering
+     * [fr.ribesg.minecraft.purpur.event.PlayerQuitEvent].
+     */
+    public val regexPlayerQuit: Regex
+
+    /**
+     * Regex triggering
+     * [fr.ribesg.minecraft.purpur.event.PlayerChatEvent].
+     */
+    public val regexPlayerChat: Regex
+
+    /**
+     * Regex triggering
+     * [fr.ribesg.minecraft.purpur.event.PlayerCommandEvent].
+     */
+    public val regexPlayerCommand: Regex
+
+    /**
      * Properties
      */
     private val props: Properties
@@ -62,5 +86,9 @@ public object Props {
         regexCreateServerProperties = (props["regex_CreateServerProperties"] as String).toRegex()
         regexEulaRequiresAgreement = (props["regex_EulaRequiresAgreement"] as String).toRegex()
         regexServerReady = (props["regex_ServerReady"] as String).toRegex()
+        regexPlayerJoin = (props["regex_PlayerJoin"] as String).toRegex()
+        regexPlayerQuit = (props["regex_PlayerQuit"] as String).toRegex()
+        regexPlayerChat = (props["regex_PlayerChat"] as String).toRegex()
+        regexPlayerCommand = (props["regex_PlayerCommand"] as String).toRegex()
     }
 }
