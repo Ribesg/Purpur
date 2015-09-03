@@ -1,6 +1,10 @@
 package fr.ribesg.minecraft.purpur.event
 
 import fr.ribesg.minecraft.purpur.Log
+import fr.ribesg.minecraft.purpur.api.event.Event
+import fr.ribesg.minecraft.purpur.api.event.EventHandler
+import fr.ribesg.minecraft.purpur.api.event.EventHandlerPriority
+import fr.ribesg.minecraft.purpur.api.event.InvalidEventHandlerException
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.util.Queue
@@ -55,7 +59,7 @@ public object EventManager {
      *
      * @param handlersHolder an object holding one or multiple EventHandlers
      */
-    suppress("UNCHECKED_CAST")
+    @suppress("UNCHECKED_CAST")
     public fun registerHandlers(handlersHolder: Any, ignoreErrors: Boolean = false) {
         var eh: EventHandler?
         var parameterType: Class<*>

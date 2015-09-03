@@ -1,4 +1,4 @@
-package fr.ribesg.minecraft.purpur.event
+package fr.ribesg.minecraft.purpur.api.event
 
 /**
  * An Event.

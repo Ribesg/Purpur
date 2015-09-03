@@ -1,11 +1,12 @@
 package fr.ribesg.minecraft.purpur
 
-import fr.ribesg.minecraft.purpur.event.EulaRequiresAgreementEvent
+import fr.ribesg.minecraft.purpur.api.event.EulaRequiresAgreementEvent
 import fr.ribesg.minecraft.purpur.event.EventManager
+import fr.ribesg.minecraft.purpur.plugin.PluginManager
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import fr.ribesg.minecraft.purpur.event.EventHandler as eventHandler
+import fr.ribesg.minecraft.purpur.api.event.EventHandler as eventHandler
 
 /**
  * @author Ribesg
@@ -19,6 +20,8 @@ public fun main(args: Array<String>) {
     EventManager.registerHandlers(TestEventHandler())
 
     var (folder, jar) = parseArgs(args)
+
+    PluginManager
 
     ServerWrapper(jar, folder).let { thread ->
         thread.start()

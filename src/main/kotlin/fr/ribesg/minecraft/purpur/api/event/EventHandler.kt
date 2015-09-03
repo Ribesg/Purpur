@@ -1,9 +1,9 @@
-package fr.ribesg.minecraft.purpur.event
+package fr.ribesg.minecraft.purpur.api.event
 
 import java.lang.annotation.ElementType
+import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
-import java.lang.annotation.Retention as retention
-import java.lang.annotation.Target as target
+import java.lang.annotation.Target
 
 /**
  * Annotation used to mark Event handlers.
@@ -13,8 +13,8 @@ import java.lang.annotation.Target as target
  *
  * @author Ribesg
  */
-target(ElementType.METHOD)
-retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public annotation class EventHandler(
     val priority: EventHandlerPriority = EventHandlerPriority.DEFAULT,
     val ignoreConsumed: Boolean = true
