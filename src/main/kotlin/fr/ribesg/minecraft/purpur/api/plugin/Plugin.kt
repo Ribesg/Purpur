@@ -8,20 +8,21 @@ import org.jetbrains.annotations.NotNull
  *
  * @author Ribesg
  */
-public abstract class Plugin(
+public abstract class Plugin {
 
     /**
      * Name of the plugin
      */
-    public val name: String,
+    public abstract val name: String
 
     /**
      * Version of the plugin
      */
-    public val version: String
+    public abstract val version: String
 
-) {
-
+    /**
+     * Constructor
+     */
     init {
         EventManager.registerHandlers(this, true)
     }
