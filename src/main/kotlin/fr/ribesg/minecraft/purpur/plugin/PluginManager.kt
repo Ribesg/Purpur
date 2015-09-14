@@ -8,7 +8,7 @@ import java.nio.file.Paths
 /**
  * @author Ribesg
  */
-public object PluginManager {
+object PluginManager {
 
     private val plugins = linkedListOf<Plugin>()
 

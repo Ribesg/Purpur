@@ -17,7 +17,7 @@ import kotlin.properties.Delegates
  * @author Ribesg
  */
 
-public class ServerWrapper(serverJarPath: Path, serverFolderPath: Path) : Thread() {
+class ServerWrapper(serverJarPath: Path, serverFolderPath: Path) : Thread() {
 
     private val builder: ProcessBuilder
 
@@ -89,11 +89,11 @@ public class ServerWrapper(serverJarPath: Path, serverFolderPath: Path) : Thread
         EventManager.call(ServerStoppedEvent())
     }
 
-    public fun print(line: String) {
+    fun print(line: String) {
         queue.add(line)
     }
 
-    public fun stopServer() {
+    fun stopServer() {
         loop = false
     }
 }

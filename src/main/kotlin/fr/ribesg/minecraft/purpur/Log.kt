@@ -8,7 +8,7 @@ import java.util.logging.Logger
 /**
  * @author Ribesg
  */
-public object Log {
+object Log {
 
     private val logger: Logger
 
@@ -31,28 +31,28 @@ public object Log {
         Runtime.getRuntime().addShutdownHook(Thread { Log.info("") })
     }
 
-    public fun isDebugEnabled(): Boolean = logger.isLoggable(Level.FINEST)
+    fun isDebugEnabled(): Boolean = logger.isLoggable(Level.FINEST)
 
 
-    public fun setDebugEnabled(value: Boolean) {
+    fun setDebugEnabled(value: Boolean) {
         logger.setLevel(if (value) Level.FINEST else Level.INFO)
     }
 
-    public fun isServerLogEnabled(): Boolean = logger.isLoggable(Level.FINE)
+    fun isServerLogEnabled(): Boolean = logger.isLoggable(Level.FINE)
 
-    public fun setServerLogEnabled(value: Boolean) {
+    fun setServerLogEnabled(value: Boolean) {
         logger.setLevel(if (value) Level.FINE else Level.INFO)
     }
 
-    public fun debug(message: Any) {
+    fun debug(message: Any) {
         logger.log(Level.FINEST, "[PURPUR] " + message.toString())
     }
 
-    public fun debug(message: Any, t: Throwable) {
+    fun debug(message: Any, t: Throwable) {
         logger.log(Level.FINEST, "[PURPUR] " + message.toString(), t)
     }
 
-    public fun info(message: Any? = null) {
+    fun info(message: Any? = null) {
         if (message == null || "".equals(message.toString())) {
             logger.log(Level.INFO, "")
         } else {
@@ -60,26 +60,26 @@ public object Log {
         }
     }
 
-    public fun server(serverLogLine: String) {
+    fun server(serverLogLine: String) {
         logger.log(Level.FINE, "[SERVER] " + serverLogLine)
     }
 
-    public fun error(message: Any) {
+    fun error(message: Any) {
         logger.log(Level.SEVERE, "[PURPUR] " + message.toString())
         flush()
     }
 
-    public fun error(message: Any, t: Throwable) {
+    fun error(message: Any, t: Throwable) {
         logger.log(Level.SEVERE, "[PURPUR] " + message.toString(), t)
         flush()
     }
 
-    public fun error(t: Throwable) {
+    fun error(t: Throwable) {
         logger.log(Level.SEVERE, "[PURPUR] Error caught", t)
         flush()
     }
 
-    public fun flush() {
+    fun flush() {
         logger.getHandlers().forEach(Handler::flush)
     }
 }

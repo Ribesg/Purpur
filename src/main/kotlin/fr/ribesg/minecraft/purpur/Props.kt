@@ -8,64 +8,64 @@ import kotlin.text.Regex
  *
  * @author Ribesg
  */
-public object Props {
+object Props {
 
     /**
      * Maven Project Name
      */
-    public val name: String
+    val name: String
 
     /**
      * Maven Version
      */
-    public val version: String
+    val version: String
 
     /**
      * Regex for raw server log line parsing
      */
-    public val regexLine: Regex
+    val regexLine: Regex
 
     /**
      * Regex triggering
      * [fr.ribesg.minecraft.purpur.event.CreateServerPropertiesEvent].
      */
-    public val regexCreateServerProperties: Regex
+    val regexCreateServerProperties: Regex
 
     /**
      * Regex triggering
      * [fr.ribesg.minecraft.purpur.event.EulaRequiresAgreementEvent].
      */
-    public val regexEulaRequiresAgreement: Regex
+    val regexEulaRequiresAgreement: Regex
 
     /**
      * Regex triggering
      * [fr.ribesg.minecraft.purpur.event.ServerReadyEvent].
      */
-    public val regexServerReady: Regex
+    val regexServerReady: Regex
 
     /**
      * Regex triggering
      * [fr.ribesg.minecraft.purpur.event.PlayerJoinEvent].
      */
-    public val regexPlayerJoin: Regex
+    val regexPlayerJoin: Regex
 
     /**
      * Regex triggering
      * [fr.ribesg.minecraft.purpur.event.PlayerQuitEvent].
      */
-    public val regexPlayerQuit: Regex
+    val regexPlayerQuit: Regex
 
     /**
      * Regex triggering
      * [fr.ribesg.minecraft.purpur.event.PlayerChatEvent].
      */
-    public val regexPlayerChat: Regex
+    val regexPlayerChat: Regex
 
     /**
      * Regex triggering
      * [fr.ribesg.minecraft.purpur.event.PlayerCommandEvent].
      */
-    public val regexPlayerCommand: Regex
+    val regexPlayerCommand: Regex
 
     /**
      * Properties

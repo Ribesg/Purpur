@@ -12,5 +12,5 @@ import kotlin.text.Regex
  *
  * The String should match the regex and have at least one group.
  */
-public fun Regex.parse(s: String): List<String>
+fun Regex.parse(s: String): List<String>
     = this.match(s)!!.groups.drop(1).map { it!!.value }.toCollection(ArrayList<String>())

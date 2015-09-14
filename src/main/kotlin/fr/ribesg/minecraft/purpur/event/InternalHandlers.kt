@@ -6,7 +6,7 @@ import fr.ribesg.minecraft.purpur.api.event.*
 /**
  * @author Ribesg
  */
-public object InternalHandlers {
+object InternalHandlers {
 
     /**
      * Calls a [LogLineEvent] for each [RawLogLineEvent].

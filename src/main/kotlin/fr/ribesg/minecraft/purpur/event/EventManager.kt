@@ -26,17 +26,17 @@ public object EventManager {
         /**
          * Object instance
          */
-        public val instance: Any,
+        val instance: Any,
 
         /**
          * EventHandler method
          */
-        public val method: Method,
+        val method: Method,
 
         /**
          * If this method should be called for a consumed Event
          */
-        public val ignoreConsumed: Boolean
+        val ignoreConsumed: Boolean
     )
 
     /**
