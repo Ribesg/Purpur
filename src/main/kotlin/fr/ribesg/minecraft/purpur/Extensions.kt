@@ -1,6 +1,6 @@
 package fr.ribesg.minecraft.purpur
 
-import java.util.ArrayList
+import java.util.*
 import kotlin.text.Regex
 
 /**
@@ -12,5 +12,5 @@ import kotlin.text.Regex
  *
  * The String should match the regex and have at least one group.
  */
-fun Regex.parse(s: String): List<String>
+internal fun Regex.parse(s: String): List<String>
     = this.match(s)!!.groups.drop(1).map { it!!.value }.toCollection(ArrayList<String>())

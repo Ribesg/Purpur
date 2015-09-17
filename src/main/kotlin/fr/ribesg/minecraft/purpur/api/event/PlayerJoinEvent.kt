@@ -7,9 +7,9 @@ import java.util.Calendar
 /**
  * @author Ribesg
  */
-public data class PlayerJoinEvent(public val time: Calendar, content: String) : Event() {
+data class PlayerJoinEvent(val time: Calendar, content: String) : Event() {
 
-    public val playerName: String
+    val playerName: String
 
     init {
         playerName = Props.regexPlayerJoin.parse(content)[0]

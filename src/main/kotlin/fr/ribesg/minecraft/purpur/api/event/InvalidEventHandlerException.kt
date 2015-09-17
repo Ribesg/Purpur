@@ -5,9 +5,9 @@ import java.lang.reflect.Method
 /**
  * @author Ribesg
  */
-public class InvalidEventHandlerException(
+class InvalidEventHandlerException(
     method: Method, reason: String
 ) : Exception(
-    "Method " + method.getDeclaringClass().getName() + '.' +
-    method.getName() + "(...) isn't a valid EventHandler: $reason"
+    "Method " + method.declaringClass.name + '.' +
+    method.name + "(...) isn't a valid EventHandler: $reason"
 )

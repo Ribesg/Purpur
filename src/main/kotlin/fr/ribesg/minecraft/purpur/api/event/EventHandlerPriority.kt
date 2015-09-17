@@ -5,7 +5,7 @@ package fr.ribesg.minecraft.purpur.api.event
  *
  * @author Ribesg
  */
-public enum class EventHandlerPriority {
+enum class EventHandlerPriority {
 
     /**
      * Use this if you want your [EventHandler] to be executed before any
@@ -17,7 +17,7 @@ public enum class EventHandlerPriority {
      * This is the internal EventHandlerPriority. It should only be used by
      * Purpur.
      */
-    @deprecated("Should only be used by Purpur")
+    @Deprecated("Should only be used by Purpur")
     INTERNAL,
 
     /**

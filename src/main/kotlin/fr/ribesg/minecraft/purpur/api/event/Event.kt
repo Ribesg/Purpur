@@ -5,7 +5,7 @@ package fr.ribesg.minecraft.purpur.api.event
  *
  * @author Ribesg
  */
-public abstract class Event {
+abstract class Event {
 
     /**
      * If this event has been consumed by a handler
@@ -15,12 +15,12 @@ public abstract class Event {
     /**
      * @return true if this event has been consumed by a handler
      */
-    public fun isConsumed(): Boolean = this.consumed
+    fun isConsumed(): Boolean = this.consumed
 
     /**
      * Consumes this event.
      */
-    public fun consume() {
+    fun consume() {
         this.consumed = true
     }
 }

@@ -6,13 +6,13 @@ import fr.ribesg.minecraft.purpur.api.event.*
 /**
  * @author Ribesg
  */
-object InternalHandlers {
+internal object InternalHandlers {
 
     /**
      * Calls a [LogLineEvent] for each [RawLogLineEvent].
      */
     @EventHandler(EventHandlerPriority.INTERNAL)
-    public fun onRawLogLine(e: RawLogLineEvent): Unit
+    fun onRawLogLine(e: RawLogLineEvent): Unit
         = EventManager.call(LogLineEvent(e.line.trim()))
 
     /**
@@ -20,7 +20,7 @@ object InternalHandlers {
      */
     // TODO Once most events are here, order them correctly (for example, chat first).
     @EventHandler(EventHandlerPriority.INTERNAL)
-    public fun onLogLine(e: LogLineEvent): Unit = when {
+    fun onLogLine(e: LogLineEvent): Unit = when {
 
         Props.regexCreateServerProperties.matches(e.content)
         -> EventManager.call(CreateServerPropertiesEvent())

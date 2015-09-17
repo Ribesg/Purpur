@@ -7,14 +7,13 @@ import java.net.URLClassLoader
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.NoSuchElementException
-import java.util.Properties
+import java.util.*
 import java.util.jar.JarFile
 
 /**
  * @author Ribesg
  */
-object PluginManager {
+internal object PluginManager {
 
     private val plugins = linkedListOf<Plugin>()
 
@@ -23,7 +22,7 @@ object PluginManager {
         if (Files.isDirectory(root)) {
             Files.newDirectoryStream(root).use { dir ->
                 dir.forEach { file ->
-                    if (file.getFileName().toString().endsWith(".jar")) {
+                    if (file.fileName.toString().endsWith(".jar")) {
                         loadPlugin(file)
                     }
                 }
@@ -34,9 +33,9 @@ object PluginManager {
     private fun loadPlugin(jarPath: Path) {
         val jar = JarFile(jarPath.toFile())
         val propsEntry = try {
-            jar.entries().asSequence().first { "plugin.properties".equals(it.getName()) }
+            jar.entries().asSequence().first { "plugin.properties".equals(it.name) }
         } catch (e: NoSuchElementException) {
-            Log.error("Missing plugin.properties in ${jarPath}")
+            Log.error("Missing plugin.properties in $jarPath")
             return
         }
         val props = Properties()
@@ -47,13 +46,13 @@ object PluginManager {
         val main = props.getProperty("main")
 
         if (name == null) {
-            Log.error("Can't load plugin in ${jarPath}: Missing 'name' property in plugin.properties")
+            Log.error("Can't load plugin in $jarPath: Missing 'name' property in plugin.properties")
             return
         } else if (version == null) {
-            Log.error("Can't load plugin in ${jarPath}: Missing 'version' property in plugin.properties")
+            Log.error("Can't load plugin in $jarPath: Missing 'version' property in plugin.properties")
             return
         } else if (main == null) {
-            Log.error("Can't load plugin in ${jarPath}: Missing 'main' property in plugin.properties")
+            Log.error("Can't load plugin in $jarPath: Missing 'main' property in plugin.properties")
             return
         }
 
@@ -71,8 +70,8 @@ object PluginManager {
 
     private fun loadJar(name: String, version: String, jarPath: Path) {
         try {
-            val addURL = javaClass<URLClassLoader>().getDeclaredMethod("addURL", javaClass<URL>())
-            addURL.setAccessible(true)
+            val addURL = URLClassLoader::class.java.getDeclaredMethod("addURL", URL::class.java)
+            addURL.isAccessible = true
             addURL.invoke(ClassLoader.getSystemClassLoader(), jarPath.toFile().toURI().toURL())
             Log.info("$name version $version loaded")
         } catch (e: ReflectiveOperationException) {

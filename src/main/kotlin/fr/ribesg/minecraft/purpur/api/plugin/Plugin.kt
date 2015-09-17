@@ -8,17 +8,17 @@ import org.jetbrains.annotations.NotNull
  *
  * @author Ribesg
  */
-public abstract class Plugin {
+abstract class Plugin {
 
     /**
      * Name of the plugin
      */
-    public abstract val name: String
+    abstract val name: String
 
     /**
      * Version of the plugin
      */
-    public abstract val version: String
+    abstract val version: String
 
     /**
      * Constructor
@@ -30,14 +30,14 @@ public abstract class Plugin {
     /**
      * Registers all handlers held by the provided object.
      */
-    public fun registerHandlers(@NotNull handlersHolder: Any) {
+    fun registerHandlers(@NotNull handlersHolder: Any) {
         EventManager.registerHandlers(handlersHolder)
     }
 
     /**
      * Unregisters all handlers held by the provided object.
      */
-    public fun unRegisterHandlers(@NotNull handlersHolder: Any) {
+    fun unRegisterHandlers(@NotNull handlersHolder: Any) {
         EventManager.unRegisterHandlers(handlersHolder)
     }
 }

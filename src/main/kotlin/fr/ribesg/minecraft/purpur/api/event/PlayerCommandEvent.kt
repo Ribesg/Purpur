@@ -7,11 +7,11 @@ import java.util.Calendar
 /**
  * @author Ribesg
  */
-public data class PlayerCommandEvent(public val time: Calendar, content: String) : Event() {
+data class PlayerCommandEvent(val time: Calendar, content: String) : Event() {
 
-    public val playerName: String
-    public val command: String
-    public val args: Array<String>
+    val playerName: String
+    val command: String
+    val args: Array<String>
 
     init {
         val (p, t, a) = Props.regexPlayerCommand.parse(content)

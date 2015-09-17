@@ -1,6 +1,6 @@
 package fr.ribesg.minecraft.purpur
 
-import java.util.Properties
+import java.util.*
 import kotlin.text.Regex
 
 /**
@@ -8,7 +8,7 @@ import kotlin.text.Regex
  *
  * @author Ribesg
  */
-object Props {
+internal object Props {
 
     /**
      * Maven Project Name

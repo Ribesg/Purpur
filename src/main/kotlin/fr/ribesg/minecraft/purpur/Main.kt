@@ -12,7 +12,7 @@ import java.nio.file.Paths
  * @author Ribesg
  */
 
-public fun main(args: Array<String>) {
+fun main(args: Array<String>) {
     Thread.setDefaultUncaughtExceptionHandler { thread, t -> Log.error(t) }
     Log.setDebugEnabled(true)
     Log.info("Starting ${Props.name} version ${Props.version}")
@@ -32,7 +32,7 @@ public fun main(args: Array<String>) {
 }
 
 private class TestEventHandler {
-    public @EventHandler fun on(event: EulaRequiresAgreementEvent) {
+    @EventHandler fun on(event: EulaRequiresAgreementEvent) {
         Log.info("EULA!")
     }
 }

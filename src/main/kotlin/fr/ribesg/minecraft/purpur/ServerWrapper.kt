@@ -9,7 +9,7 @@ import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.nio.file.Path
-import java.util.Queue
+import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.properties.Delegates
 
@@ -17,7 +17,7 @@ import kotlin.properties.Delegates
  * @author Ribesg
  */
 
-class ServerWrapper(serverJarPath: Path, serverFolderPath: Path) : Thread() {
+internal class ServerWrapper(serverJarPath: Path, serverFolderPath: Path) : Thread() {
 
     private val builder: ProcessBuilder
 
@@ -26,7 +26,7 @@ class ServerWrapper(serverJarPath: Path, serverFolderPath: Path) : Thread() {
 
     private val queue: Queue<String>
 
-    private volatile var loop: Boolean
+    private @Volatile var loop: Boolean
 
     init {
         Thread.setDefaultUncaughtExceptionHandler { thread, t -> Log.error(t) }

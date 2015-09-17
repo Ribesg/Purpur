@@ -7,10 +7,10 @@ import java.util.Calendar
 /**
  * @author Ribesg
  */
-public data class PlayerQuitEvent(public val time: Calendar, content: String) : Event() {
+data class PlayerQuitEvent(val time: Calendar, content: String) : Event() {
 
-    public val playerName: String
-    public val reason: String // TODO Or not?
+    val playerName: String
+    val reason: String // TODO Or not?
 
     init {
         val (p, r) = Props.regexPlayerQuit.parse(content)

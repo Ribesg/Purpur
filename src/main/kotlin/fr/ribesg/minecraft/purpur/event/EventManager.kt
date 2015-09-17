@@ -7,7 +7,7 @@ import fr.ribesg.minecraft.purpur.api.event.EventHandlerPriority
 import fr.ribesg.minecraft.purpur.api.event.InvalidEventHandlerException
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
-import java.util.Queue
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue
  * Manages Events. Yeah.
  * @author Ribesg
  */
-public object EventManager {
+object EventManager {
 
     /**
      * This little private Class is used to be able to store Object instances
@@ -59,18 +59,18 @@ public object EventManager {
      *
      * @param handlersHolder an object holding one or multiple EventHandlers
      */
-    @suppress("UNCHECKED_CAST")
-    public fun registerHandlers(handlersHolder: Any, ignoreErrors: Boolean = false) {
+    @Suppress("UNCHECKED_CAST")
+    fun registerHandlers(handlersHolder: Any, ignoreErrors: Boolean = false) {
         var eh: EventHandler?
         var parameterType: Class<*>
         var handlerRegistered = false
-        for (m: Method in handlersHolder.javaClass.getMethods()) {
-            eh = m.getAnnotation(javaClass<EventHandler>())
+        for (m: Method in handlersHolder.javaClass.methods) {
+            eh = m.getAnnotation(EventHandler::class.java)
             if (eh != null) {
-                parameterType = m.getParameterTypes()[0]
-                if (m.getParameterCount() != 1 || !javaClass<Event>().isAssignableFrom(parameterType)) {
+                parameterType = m.parameterTypes[0]
+                if (m.parameterCount != 1 || !Event::class.java.isAssignableFrom(parameterType)) {
                     throw InvalidEventHandlerException(m, "Invalid parameter count or type")
-                } else if (!Modifier.isPublic(m.getModifiers())) {
+                } else if (!Modifier.isPublic(m.modifiers)) {
                     throw InvalidEventHandlerException(m, "Not public")
                 } else {
                     var eventHandlers = this.handlers.getOrPut(
@@ -87,7 +87,7 @@ public object EventManager {
             }
         }
         if (!ignoreErrors && !handlerRegistered) {
-            throw IllegalArgumentException("Provided object class '" + handlersHolder.javaClass.getName() + "' has no valid EventHandler")
+            throw IllegalArgumentException("Provided object class '" + handlersHolder.javaClass.name + "' has no valid EventHandler")
         }
     }
 
@@ -100,15 +100,15 @@ public object EventManager {
      *                           occur if the provided instance isn't
      *                           registered
      */
-    public fun unRegisterHandlers(handlersHolder: Any, ignoreErrors: Boolean = false) {
+    fun unRegisterHandlers(handlersHolder: Any, ignoreErrors: Boolean = false) {
         var eh: EventHandler?
         var parameterType: Class<*>
         var registeredHandlerFound = false
-        for (m: Method in handlersHolder.javaClass.getMethods()) {
-            eh = m.getAnnotation(javaClass<EventHandler>())
-            if (m.isAccessible() && eh != null) {
-                parameterType = m.getParameterTypes()[0]
-                if (m.getParameterCount() != 1 || !javaClass<Event>().isAssignableFrom(parameterType)) {
+        for (m: Method in handlersHolder.javaClass.methods) {
+            eh = m.getAnnotation(EventHandler::class.java)
+            if (m.isAccessible && eh != null) {
+                parameterType = m.parameterTypes[0]
+                if (m.parameterCount != 1 || !Event::class.java.isAssignableFrom(parameterType)) {
                     throw InvalidEventHandlerException(m, "Invalid parameter count or type")
                 } else {
                     var eventHandlers = this.handlers.get(parameterType)
@@ -135,7 +135,7 @@ public object EventManager {
             }
         }
         if (!ignoreErrors && !registeredHandlerFound) {
-            throw IllegalArgumentException("Provided instance of '" + handlersHolder.javaClass.getName() + "' has no registered EventHandler")
+            throw IllegalArgumentException("Provided instance of '" + handlersHolder.javaClass.name + "' has no registered EventHandler")
         }
     }
 
@@ -144,7 +144,7 @@ public object EventManager {
      *
      * @param event an Event
      */
-    public fun call(event: Event) {
+    fun call(event: Event) {
         val clazz = event.javaClass
         val eventHandlers = this.handlers.get(clazz) ?: return
         for (priority in EventHandlerPriority.values ()) {
@@ -156,7 +156,7 @@ public object EventManager {
                     }
                 } catch (t: Throwable) {
                     Log.error(
-                        "EventHandler '" + om.method.getDeclaringClass().getName() + '.' + om.method.getName() +
+                        "EventHandler '" + om.method.declaringClass.name + '.' + om.method.name +
                         "(...)' invokation failed", t
                     )
                 }

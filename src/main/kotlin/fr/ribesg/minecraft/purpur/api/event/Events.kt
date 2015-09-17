@@ -4,12 +4,12 @@ package fr.ribesg.minecraft.purpur.api.event
  * @author Ribesg
  */
 
-public data class RawLogLineEvent(val line: String) : Event()
+data class RawLogLineEvent(val line: String) : Event()
 
-public class CreateServerPropertiesEvent : Event()
+class CreateServerPropertiesEvent : Event()
 
-public class EulaRequiresAgreementEvent : Event()
+class EulaRequiresAgreementEvent : Event()
 
-public class ServerReadyEvent : Event()
+class ServerReadyEvent : Event()
 
-public class ServerStoppedEvent : Event()
+class ServerStoppedEvent : Event()

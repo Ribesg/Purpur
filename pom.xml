@@ -10,7 +10,7 @@
    <name>Purpur</name>
 
    <properties>
-      <kotlin.version>0.12.1230</kotlin.version>
+      <kotlin.version>0.13.1513</kotlin.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
    </properties>
 

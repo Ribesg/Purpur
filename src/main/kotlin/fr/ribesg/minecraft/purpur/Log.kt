@@ -8,7 +8,7 @@ import java.util.logging.Logger
 /**
  * @author Ribesg
  */
-object Log {
+internal object Log {
 
     private val logger: Logger
 
@@ -18,13 +18,13 @@ object Log {
             "java.util.logging.SimpleFormatter.format",
             "%n%5\$s %6\$s"
         )
-        for (h in logger.getHandlers ()) {
+        for (h in logger.handlers) {
             logger.removeHandler(h);
         }
         logger.addHandler(object : ConsoleHandler() {
             init {
                 this.setOutputStream(System.out);
-                this.setLevel(Level.ALL);
+                this.level = Level.ALL;
             }
         });
 
@@ -35,13 +35,13 @@ object Log {
 
 
     fun setDebugEnabled(value: Boolean) {
-        logger.setLevel(if (value) Level.FINEST else Level.INFO)
+        logger.level = if (value) Level.FINEST else Level.INFO
     }
 
     fun isServerLogEnabled(): Boolean = logger.isLoggable(Level.FINE)
 
     fun setServerLogEnabled(value: Boolean) {
-        logger.setLevel(if (value) Level.FINE else Level.INFO)
+        logger.level = if (value) Level.FINE else Level.INFO
     }
 
     fun debug(message: Any) {
@@ -80,6 +80,6 @@ object Log {
     }
 
     fun flush() {
-        logger.getHandlers().forEach(Handler::flush)
+        logger.handlers.forEach(Handler::flush)
     }
 }
